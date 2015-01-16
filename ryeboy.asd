@@ -4,7 +4,8 @@
   :description "Riemann client"
   :licence "BSD"
   :serial t
-  :components ((:file "ryeboy-conn")
+  :components ((:file "packages")
+               (:file "ryeboy-conn")
                (:file "ryeboy"))
   :depends-on (:asdf
                :protobuf))
