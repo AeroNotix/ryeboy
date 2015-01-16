@@ -8,4 +8,5 @@
                (:file "ryeboy-conn")
                (:file "ryeboy"))
   :depends-on (:asdf
-               :protobuf))
+               :protobuf
+               :usocket))
