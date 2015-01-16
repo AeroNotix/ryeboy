@@ -1,5 +1,5 @@
 PROTOBUF_DEFINITION=https://raw.githubusercontent.com/aphyr/riemann-java-client/master/src/main/proto/riemann/proto.proto
-PROTOC=$(shell which foo 2> /dev/null)
+PROTOC=$(shell which protoc 2> /dev/null)
 PROTOC_GEN_LISP=git://github.com/brown/protobuf.git
 PLUGIN=$(shell which protoc-gen-lisp 2> /dev/null)
 ifeq ($(PLUGIN),)
