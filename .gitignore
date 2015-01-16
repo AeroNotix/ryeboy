@@ -1,0 +1,3 @@
+*.fasl
+/proto.proto
+/bin/
