@@ -5,6 +5,7 @@
   :licence "BSD"
   :serial t
   :components ((:file "packages")
+               (:file "proto")
                (:file "ryeboy-conn")
                (:file "ryeboy"))
   :depends-on (:asdf

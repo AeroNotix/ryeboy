@@ -1,3 +1,3 @@
 (defpackage ryeboy
-  (:use #:cl #:com.aphyr.riemann)
+  (:use #:cl)
   (:export #:make-connection))
