@@ -1,26 +1,30 @@
 (in-package :ryeboy)
 
 
-(defun make-event (&key time state service host description tags ttl attrs metric)
+(defun make-event (&key
+                     (time (encode-universal-time 0 0 0 1 1 1970 0))
+                     (host (machine-instance))
+                     state service description tags ttl attrs metric)
   (let ((event (make-instance 'com.aphyr.riemann:event)))
-    (when time
-      (setf (com.aphyr.riemann:time event) time))
+    (setf (com.aphyr.riemann:time event) time)
+    (setf (com.aphyr.riemann:host event) (protocol-buffer:string-field host))
     (when state
-      (setf (state event) (protocol-buffer:string-field state)))
+      (setf (com.aphyr.riemann:state event) (protocol-buffer:string-field state)))
     (when service
-      (setf (service event) (protocol-buffer:string-field service)))
-    (when host
-      (setf (host event) (protocol-buffer:string-field host)))
+      (setf (com.aphyr.riemann:service event) (protocol-buffer:string-field service)))
     (when description
-      (setf (description event) (protocol-buffer:string-field description)))
+      (setf (com.aphyr.riemann:description event) (protocol-buffer:string-field description)))
     (when tags
-      (setf (tags event) tags))
-    (if ttl
-        (setf (ttl event) (float ttl))
-        (setf (ttl event) 0.0))
+      (setf (com.aphyr.riemann:tags event)
+            (map 'vector #'protocol-buffer:string-field tags)))
+    (when ttl
+      (setf (com.aphyr.riemann:ttl event) (float ttl)))
     (when attrs
-      (setf (attributes event) attrs))
+      (setf (com.aphyr.riemann:attributes event) attrs))
     (when metric
+      ;; TODO:
+      ;;   Aphyr's library does. Ask him why.
+      (set-metric event (float metric))
       (set-metric event metric))
     event))
 
@@ -28,15 +32,15 @@
   (:documentation "Set the metric type on the event"))
 
 (defmethod set-metric ((event com.aphyr.riemann:event) (metric integer))
-  (setf (metric-sint64 event) metric)
+  (setf (com.aphyr.riemann:metric-sint64 event) metric)
   event)
 
 (defmethod set-metric ((event com.aphyr.riemann:event) (metric float))
-  (setf (metric-f event) metric)
+  (setf (com.aphyr.riemann:metric-f event) metric)
   event)
 
 (defmethod set-metric ((event com.aphyr.riemann:event) (metric double-float))
-  (setf (metric-d event) metric)
+  (setf (com.aphyr.riemann:metric-d event) metric)
   event)
 
 (defun thing->bytes (thing)
