@@ -4,6 +4,9 @@
 (defgeneric set-metric (event metric)
   (:documentation "Set the metric type on the event"))
 
+(defgeneric set-attributes (event attributes)
+  (:documentation "Set the attributes on the event"))
+
 (defmethod set-metric ((event com.aphyr.riemann:event) (metric integer))
   (setf (com.aphyr.riemann:metric-sint64 event) metric)
   event)
@@ -15,6 +18,9 @@
 (defmethod set-metric ((event com.aphyr.riemann:event) (metric double-float))
   (setf (com.aphyr.riemann:metric-d event) metric)
   event)
+
+(defmethod set-attributes ((event com.aphyr.riemann:event) (attributes hash-table))
+  )
 
 (defun thing->bytes (thing)
   (let* ((size (pb:octet-size thing))
