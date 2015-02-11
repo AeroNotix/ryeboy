@@ -54,8 +54,6 @@
     (when attrs
       (setf (com.aphyr.riemann:attributes event) attrs))
     (when metric
-      ;; TODO:
-      ;;   Aphyr's library does. Ask him why.
       (set-metric event (float metric))
       (set-metric event metric))
     event))
