@@ -19,7 +19,7 @@
             unsigned-value)
         unsigned-value)))
 
-(defmacro define-binary-write (name size)
+(defmacro define-binary-type (name size)
   (labels ((create-symbol (fmt name)
              (intern (format nil fmt name) 'ryeboy)))
     (let ((value (gensym "value"))
@@ -32,4 +32,4 @@
          (defun ,read-fun-name (,stream &key (signed? nil))
            (read-sized ,size ,stream signed?))))))
 
-(define-binary-write int 32)
+(define-binary-type int 32)
