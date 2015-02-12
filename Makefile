@@ -30,5 +30,7 @@ proto.proto:
 proto.lisp: proto.proto
 	$(PROTOC) --plugin=$(PLUGIN_PATH) --proto_path=. --lisp_out=. $<
 
+test:
+	sbcl --noinform --eval '(asdf:test-system :ryeboy)' --quit
 .PHONY: \
 	protobuf-compiler

@@ -7,8 +7,19 @@
   :serial t
   :components ((:file "packages")
                (:file "proto")
-               (:file "ryeboy-conn")
-               (:file "ryeboy"))
+               (:file "binary")
+               (:file "time")
+               (:file "ryeboy-protocol")
+               (:file "ryeboy-conn"))
   :depends-on (:alexandria
                :protobuf
-               :usocket))
+               :usocket)
+  :in-order-to ((test-op (test-op ryeboy-test))))
+
+(defsystem :ryeboy-test
+  :depends-on (:ryeboy :prove)
+  :defsystem-depends-on (:prove-asdf)
+  :components
+  ((:test-file "ryeboy_test"))
+  :perform (test-op :after (op c)
+                    (funcall (intern #.(string :run) :prove) c)))
