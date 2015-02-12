@@ -1,3 +1,3 @@
 (defpackage ryeboy
   (:use #:cl)
-  (:export #:make-connection))
+  (:export #:make-connection #:send-event #:send-events))
