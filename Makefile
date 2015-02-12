@@ -20,7 +20,7 @@ $(PLUGIN_PATH):
 		cd /tmp/protobufs/protoc/lisp && \
 		make
 	@cp /tmp/protobufs/protoc/lisp/protoc-gen-lisp ./bin/ && \
-		yes | rm -r /tmp/protobufs/
+		rm -rf /tmp/protobufs/
 
 protobuf-compiler: $(PLUGIN_PATH)
 
