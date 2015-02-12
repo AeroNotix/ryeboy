@@ -1,6 +1,8 @@
 Ryeboy
 ======
 
+[![Build Status](https://travis-ci.org/AeroNotix/ryeboy.svg?branch=master)](https://travis-ci.org/AeroNotix/ryeboy)
+
 ![monolith](http://i.imgur.com/ljUZbEF.jpg)
 
 A Common Lisp client to [Riemann](https://github.com/aphyr/riemann)
