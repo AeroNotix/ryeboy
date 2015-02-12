@@ -40,5 +40,7 @@
         (ok (send-event conn event)))))
   (is-error (query conn "totally doesn't make sense as a query") 'riemann-error-response))
 
+(pass "Everything is A-OK")
+
 (when (> (prove.suite:failed (prove.suite:current-suite)) 0)
   (sb-ext:exit :code -1))
