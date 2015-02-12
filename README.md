@@ -14,6 +14,7 @@ Usage:
 (let ((conn (make-connection))
       (ht (make-hash-table :test #'equal)))
   (setf (gethash "foo" ht) "bar")
+  (send-event conn (make-event)) ;; Sends with time/host defaults
   (send-events conn
                (make-event :tags (list "foo" "bar" "baz"))
                (make-event :attrs ht)
