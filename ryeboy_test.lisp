@@ -38,6 +38,10 @@
                                     :attrs ht))))
       (dolist (event events)
         (ok (send-event conn event)))))
+
+  (ok (send-event conn (make-event :service "foobar" :ttl 90)))
+  (let ((query-response (query conn "service = \"foobar\"")))
+    (is 1 (length query-response)))
   (is-error (query conn "totally doesn't make sense as a query")
             'riemann-error-response))
 
