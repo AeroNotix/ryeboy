@@ -76,3 +76,8 @@
       (set-metric event (float metric))
       (set-metric event metric))
     event))
+
+(defun make-query (query-string)
+  (let ((query (make-instance 'com.aphyr.riemann:query)))
+    (setf (com.aphyr.riemann:string query) (protocol-buffer:string-field query-string))
+    query))

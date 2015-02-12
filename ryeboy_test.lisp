@@ -37,7 +37,8 @@
                                     :host "fooo"
                                     :attrs ht))))
       (dolist (event events)
-        (ok (send-event conn event))))))
+        (ok (send-event conn event)))))
+  (is-error (query conn "totally doesn't make sense as a query") 'riemann-error-response))
 
 (when (> (prove.suite:failed (prove.suite:current-suite)) 0)
   (sb-ext:exit :code -1))

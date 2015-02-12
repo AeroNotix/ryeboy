@@ -5,4 +5,6 @@
    #:make-event
    #:send-event
    #:send-events
+   #:query
+   #:riemann-error-response
    ))
