@@ -16,6 +16,12 @@
     (setf (com.aphyr.riemann:events msg) events)
     msg))
 
+(defun read-reply (conn)
+  (let* ((wire-size (read-int conn))
+         (buf (make-array wire-size :element-type '(unsigned-byte 8))))
+    (read-sequence buf conn)
+    (bytes->msg buf)))
+
 (defun send-event (conn event)
   ;; TODO: UDP connections aren't length prefixed, namsay
   (let* ((msg (make-msg event))
@@ -23,4 +29,4 @@
     (write-int (length encoded) conn)
     (write-sequence encoded conn)
     (finish-output conn)
-    (values)))
+    (read-reply conn)))

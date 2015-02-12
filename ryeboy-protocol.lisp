@@ -28,6 +28,13 @@
     (pb:serialize thing buffer 0 size)
     buffer))
 
+;; Make this a macro/defgeneric
+(defun bytes->msg (bytes)
+  (let ((e (make-instance 'com.aphyr.riemann:msg)))
+    (pb:merge-from-array e bytes 0 (length bytes))
+    e))
+
+;; Make this a macro/defgeneric
 (defun bytes->event (bytes)
   (let ((e (make-instance 'com.aphyr.riemann:event)))
     (pb:merge-from-array e bytes 0 (length bytes))
