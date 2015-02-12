@@ -20,7 +20,7 @@
   (let* ((wire-size (read-int conn))
          (buf (make-array wire-size :element-type '(unsigned-byte 8))))
     (read-sequence buf conn)
-    (bytes->msg buf)))
+    (com.aphyr.riemann:has-ok (bytes->msg buf))))
 
 (defun send-msg (conn msg)
   (let ((encoded (thing->bytes msg)))
