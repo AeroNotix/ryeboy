@@ -22,11 +22,18 @@
     (read-sequence buf conn)
     (bytes->msg buf)))
 
-(defun send-event (conn event)
-  ;; TODO: UDP connections aren't length prefixed, namsay
-  (let* ((msg (make-msg event))
-         (encoded (thing->bytes msg)))
+(defun send-msg (conn msg)
+  (let ((encoded (thing->bytes msg)))
     (write-int (length encoded) conn)
     (write-sequence encoded conn)
     (finish-output conn)
     (read-reply conn)))
+
+(defun send-event (conn event)
+  ;; TODO: UDP connections aren't length prefixed, namsay
+  (let ((msg (make-msg event)))
+    (send-msg conn msg)))
+
+(defun send-events (conn &rest events)
+  (let ((msg (apply #'make-msg events)))
+    (send-msg conn msg)))
