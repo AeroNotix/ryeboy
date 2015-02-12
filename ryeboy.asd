@@ -9,7 +9,6 @@
                (:file "proto")
                (:file "ryeboy-conn")
                (:file "ryeboy"))
-  :depends-on (:asdf
-               :alexandria
+  :depends-on (:alexandria
                :protobuf
                :usocket))
