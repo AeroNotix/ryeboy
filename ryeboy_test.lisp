@@ -38,7 +38,8 @@
                                     :attrs ht))))
       (dolist (event events)
         (ok (send-event conn event)))))
-  (is-error (query conn "totally doesn't make sense as a query") 'riemann-error-response))
+  (is-error (query conn "totally doesn't make sense as a query")
+            'riemann-error-response))
 
 (pass "Everything is A-OK")
 
