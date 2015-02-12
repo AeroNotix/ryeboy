@@ -8,6 +8,9 @@ PLUGIN_PATH=./bin/protoc-gen-lisp
 else
 PLUGIN_PATH=$(PLUGIN)
 endif
+LISP=sbcl
+TEST_COMMAND='(asdf:test-system :ryeboy)'
+sbcl_TEST_OPTS=--noinform --eval $(TEST_COMMAND) --quit
 
 
 all: protobuf-compiler compile-proto
@@ -31,6 +34,7 @@ proto.lisp: proto.proto
 	$(PROTOC) --plugin=$(PLUGIN_PATH) --proto_path=. --lisp_out=. $<
 
 test:
-	sbcl --noinform --eval '(asdf:test-system :ryeboy)' --quit
+	$(LISP) $($(LISP)_TEST_OPTS)
+
 .PHONY: \
 	protobuf-compiler
