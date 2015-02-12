@@ -19,8 +19,8 @@
 (defun send-event (conn event)
   ;; TODO: UDP connections aren't length prefixed, namsay
   (let* ((msg (make-msg event))
-         (encoded (thing->bytes event)))
+         (encoded (thing->bytes msg)))
     (write-int (length encoded) conn)
-    (write-sequence (thing->bytes msg) conn)
+    (write-sequence encoded conn)
     (finish-output conn)
     (values)))

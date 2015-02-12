@@ -35,8 +35,9 @@
 
 (defun make-event (&key
                      (time (get-unix-time))
+                     (metric 0)
                      (host (machine-instance))
-                     state service description tags ttl attrs metric)
+                     state service description tags ttl attrs)
   (let ((event (make-instance 'com.aphyr.riemann:event)))
     (setf (com.aphyr.riemann:time event) time)
     (setf (com.aphyr.riemann:host event) (protocol-buffer:string-field host))
