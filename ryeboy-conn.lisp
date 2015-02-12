@@ -26,6 +26,11 @@
     (setf (com.aphyr.riemann:events msg) events)
     msg))
 
+(defun handle-response (response request-type)
+  (if (eq :events request-type)
+      T
+      (com.aphyr.riemann:events response)))
+
 (defun read-reply (conn request-type)
   (let* ((wire-size (read-int conn))
          (buf (make-array wire-size :element-type '(unsigned-byte 8))))
@@ -33,7 +38,7 @@
     (let ((response (bytes->msg buf)))
       (when (com.aphyr.riemann:has-ok response)
         (if (com.aphyr.riemann:ok response)
-            T
+            (handle-response response request-type)
             (error (make-instance 'riemann-error-response
                                   :msg (protocol-buffer:string-value
                                         (com.aphyr.riemann:error response))
