@@ -19,8 +19,19 @@
   (setf (com.aphyr.riemann:metric-d event) metric)
   event)
 
+(defun encode-attributes (kv)
+  (let* ((k (car kv))
+         (v (cdr kv))
+         (attr (make-instance 'com.aphyr.riemann:attribute)))
+    (setf (com.aphyr.riemann:key attr) (protocol-buffer:string-field k))
+    (setf (com.aphyr.riemann:value attr) (protocol-buffer:string-field v))
+    attr))
+
 (defmethod set-attributes ((event com.aphyr.riemann:event) (attributes hash-table))
-  )
+  (setf (com.aphyr.riemann:attributes event)
+        (map '(vector com.aphyr.riemann:attribute)
+             #'encode-attributes
+             (alexandria:hash-table-alist attributes))))
 
 (defun thing->bytes (thing)
   (let* ((size (pb:octet-size thing))
@@ -60,7 +71,7 @@
     (when ttl
       (setf (com.aphyr.riemann:ttl event) (float ttl)))
     (when attrs
-      (setf (com.aphyr.riemann:attributes event) attrs))
+      (set-attributes event attrs))
     (when metric
       (set-metric event (float metric))
       (set-metric event metric))
