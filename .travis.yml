@@ -3,10 +3,8 @@ language: common-lisp
 env:
   matrix:
     - LISP=sbcl
-#    - LISP=ccl
-#    - LISP=clisp
 
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | bash
 
-script: "sbcl --eval '(progn (ql:update-all-dists :prompt nil) (ql:quickload :prove))' --quit && make test"
+script: "sbcl --eval '(progn (ql:update-all-dists :prompt nil) (ql:quickload :prove) (ql:quickload :ryeboy))' --quit && make test"
