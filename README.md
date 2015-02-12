@@ -21,5 +21,6 @@ Usage:
                (make-event :tags (list "foo" "bar" "baz"))
                (make-event :attrs ht)
                (make-event :service "somefunkyservice")
-               (make-event :service "somethingisbroken" :state "offline")))
+               (make-event :service "somethingisbroken" :state "offline"))
+  (print (query conn "service = \"somefunkyservice\"")))
 ```
