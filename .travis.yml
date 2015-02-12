@@ -9,4 +9,4 @@ env:
 install:
   - curl https://raw.githubusercontent.com/luismbo/cl-travis/master/install.sh | bash
 
-script: "make test"
+script: "sbcl --eval '(progn (ql:update-all-dists :prompt nil) (ql:quickload :prove))' --quit && make test"
