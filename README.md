@@ -7,8 +7,7 @@ A Common Lisp client to [Riemann](https://github.com/aphyr/riemann)
 
 Usage:
 
-```common lisp
-
+```lisp
 (ql:quickload :ryeboy)
 (use-package :ryeboy)
 
