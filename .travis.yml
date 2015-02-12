@@ -12,5 +12,5 @@ install:
 script:
   - "cl -l prove
         -e '(or (every (function identity)
-                       (list (prove:run :ryebo)))
+                       (list (prove:run :ryeboy)))
                 (uiop:quit -1))'"
