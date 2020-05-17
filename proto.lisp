@@ -6,9 +6,9 @@
 
 (cl:in-package #:common-lisp-user)
 (eval-when (:compile-toplevel :load-toplevel :execute)
-  (unless (find-package '#:com.aphyr.riemann)
-    (make-package '#:com.aphyr.riemann :use nil)))
-(in-package #:com.aphyr.riemann)
+  (unless (find-package '#:io.riemann.riemann)
+    (make-package '#:io.riemann.riemann :use nil)))
+(in-package #:io.riemann.riemann)
 (cl:declaim #.com.google.base:*optimize-default*)
 
 (cl:defclass state (pb:protocol-buffer)
@@ -57,9 +57,11 @@
    :type (cl:integer 0 #.(cl:1- cl:array-dimension-limit)))
   ))
 
-(cl:export 'state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'state))
 
-(cl:export 'time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'time))
 
 
 (cl:defmethod (cl:setf time) :after (x (self state))
@@ -70,7 +72,8 @@
   (cl:defgeneric has-time (proto)))
 (cl:defmethod has-time ((self state))
   (cl:logbitp 0 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-time))
 
 (cl:unless (cl:fboundp 'clear-time)
   (cl:defgeneric clear-time (proto)))
@@ -78,9 +81,11 @@
   (cl:setf (cl:slot-value self 'time) 0)
   (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-time))
 
-(cl:export 'state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'state))
 
 
 (cl:defmethod (cl:setf state) :after (x (self state))
@@ -91,7 +96,8 @@
   (cl:defgeneric has-state (proto)))
 (cl:defmethod has-state ((self state))
   (cl:logbitp 1 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-state))
 
 (cl:unless (cl:fboundp 'clear-state)
   (cl:defgeneric clear-state (proto)))
@@ -99,9 +105,11 @@
   (cl:setf (cl:slot-value self 'state) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-state))
 
-(cl:export 'service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'service))
 
 
 (cl:defmethod (cl:setf service) :after (x (self state))
@@ -112,7 +120,8 @@
   (cl:defgeneric has-service (proto)))
 (cl:defmethod has-service ((self state))
   (cl:logbitp 2 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-service))
 
 (cl:unless (cl:fboundp 'clear-service)
   (cl:defgeneric clear-service (proto)))
@@ -120,9 +129,11 @@
   (cl:setf (cl:slot-value self 'service) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-service))
 
-(cl:export 'host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'host))
 
 
 (cl:defmethod (cl:setf host) :after (x (self state))
@@ -133,7 +144,8 @@
   (cl:defgeneric has-host (proto)))
 (cl:defmethod has-host ((self state))
   (cl:logbitp 3 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-host))
 
 (cl:unless (cl:fboundp 'clear-host)
   (cl:defgeneric clear-host (proto)))
@@ -141,9 +153,11 @@
   (cl:setf (cl:slot-value self 'host) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-host))
 
-(cl:export 'description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'description))
 
 
 (cl:defmethod (cl:setf description) :after (x (self state))
@@ -154,7 +168,8 @@
   (cl:defgeneric has-description (proto)))
 (cl:defmethod has-description ((self state))
   (cl:logbitp 4 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-description))
 
 (cl:unless (cl:fboundp 'clear-description)
   (cl:defgeneric clear-description (proto)))
@@ -162,9 +177,11 @@
   (cl:setf (cl:slot-value self 'description) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-description))
 
-(cl:export 'once)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'once))
 
 
 (cl:defmethod (cl:setf once) :after (x (self state))
@@ -175,7 +192,8 @@
   (cl:defgeneric has-once (proto)))
 (cl:defmethod has-once ((self state))
   (cl:logbitp 5 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-once)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-once))
 
 (cl:unless (cl:fboundp 'clear-once)
   (cl:defgeneric clear-once (proto)))
@@ -183,9 +201,11 @@
   (cl:setf (cl:slot-value self 'once) cl:nil)
   (cl:setf (cl:ldb (cl:byte 1 5) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-once)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-once))
 
-(cl:export 'tags)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'tags))
 
 (cl:unless (cl:fboundp 'clear-tags)
   (cl:defgeneric clear-tags (proto)))
@@ -196,9 +216,11 @@
             :element-type 'pb::%sf%
             :fill-pointer 0 :adjustable cl:t))
   (cl:values))
-(cl:export 'clear-tags)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-tags))
 
-(cl:export 'ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'ttl))
 
 
 (cl:defmethod (cl:setf ttl) :after (x (self state))
@@ -209,7 +231,8 @@
   (cl:defgeneric has-ttl (proto)))
 (cl:defmethod has-ttl ((self state))
   (cl:logbitp 7 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-ttl))
 
 (cl:unless (cl:fboundp 'clear-ttl)
   (cl:defgeneric clear-ttl (proto)))
@@ -217,7 +240,8 @@
   (cl:setf (cl:slot-value self 'ttl) 0f0)
   (cl:setf (cl:ldb (cl:byte 1 7) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-ttl))
 
 
 (cl:defmethod cl:print-object ((self state) stream)
@@ -266,39 +290,39 @@
 
 (cl:defmethod pb:octet-size ((self state))
   (cl:let ((size 0))
-    ;; optional int64 time = 1;
+    ;; optional int64 time = 1[json_name = "time"];
     (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 (varint:length64 (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time))))))
-    ;; optional string state = 2;
+    ;; optional string state = 2[json_name = "state"];
     (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'state))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string service = 3;
+    ;; optional string service = 3[json_name = "service"];
     (cl:when (cl:logbitp 2 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'service))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string host = 4;
+    ;; optional string host = 4[json_name = "host"];
     (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'host))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string description = 5;
+    ;; optional string description = 5[json_name = "description"];
     (cl:when (cl:logbitp 4 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'description))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional bool once = 6;
+    ;; optional bool once = 6[json_name = "once"];
     (cl:when (cl:logbitp 5 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 1)))
-    ;; optional float ttl = 8;
+    ;; optional float ttl = 8[json_name = "ttl"];
     (cl:when (cl:logbitp 7 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 4)))
-    ;; repeated string tags = 7;
+    ;; repeated string tags = 7[json_name = "tags"];
     (cl:let* ((x (cl:slot-value self 'tags))
               (length (cl:length x)))
       (cl:incf size (cl:* 1 length))
@@ -312,40 +336,43 @@
   (cl:declare (cl:type com.google.base:octet-vector buffer)
               (cl:type com.google.base:vector-index index limit)
               (cl:ignorable buffer limit))
-  ;; optional int64 time = 1;
+  ;; optional int64 time = 1[json_name = "time"];
   (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 8))
-    (cl:setf index (varint:encode-uint64-carefully buffer index limit (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time)))))
-  ;; optional string state = 2;
+    (cl:setf index
+             (varint:encode-uint64-carefully buffer index limit (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time)))))
+  ;; optional string state = 2[json_name = "state"];
   (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 18))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'state) 'pb::%octets%))))
-  ;; optional string service = 3;
+  ;; optional string service = 3[json_name = "service"];
   (cl:when (cl:logbitp 2 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 26))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'service) 'pb::%octets%))))
-  ;; optional string host = 4;
+  ;; optional string host = 4[json_name = "host"];
   (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 34))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'host) 'pb::%octets%))))
-  ;; optional string description = 5;
+  ;; optional string description = 5[json_name = "description"];
   (cl:when (cl:logbitp 4 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 42))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'description) 'pb::%octets%))))
-  ;; optional bool once = 6;
+  ;; optional bool once = 6[json_name = "once"];
   (cl:when (cl:logbitp 5 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 48))
-    (cl:setf index (wire-format:write-boolean-carefully buffer index limit (cl:slot-value self 'once))))
-  ;; repeated string tags = 7;
+    (cl:setf index
+             (wire-format:write-boolean-carefully buffer index limit (cl:slot-value self 'once))))
+  ;; repeated string tags = 7[json_name = "tags"];
   (cl:let* ((v (cl:slot-value self 'tags))
             (length (cl:length v)))
     (cl:dotimes (i length)
       (cl:setf index (varint:encode-uint32-carefully buffer index limit 58))
       (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:aref v i) 'pb::%octets%)))))
-  ;; optional float ttl = 8;
+  ;; optional float ttl = 8[json_name = "ttl"];
   (cl:when (cl:logbitp 7 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 69))
-    (cl:setf index (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'ttl))))
+    (cl:setf index
+             (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'ttl))))
   index)
 
 (cl:defmethod pb:merge-from-array ((self state) buffer start limit)
@@ -354,69 +381,93 @@
   (cl:do ((index start index))
       ((cl:>= index limit) index)
     (cl:declare (cl:type com.google.base:vector-index index))
-    (cl:multiple-value-bind (tag new-index)
-        (varint:parse-uint32-carefully buffer index limit)
+    (cl:multiple-value-bind (field-number wire-type new-index)
+        (wire-format:parse-tag buffer index limit)
       (cl:setf index new-index)
-      (cl:case tag
-        ;; optional int64 time = 1;
+      (cl:case field-number
+        ;; optional int64 time = 1[json_name = "time"];
+        ((1)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (varint:parse-int64-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'time) value)
+                (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string state = 2[json_name = "state"];
+        ((2)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'state) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string service = 3[json_name = "service"];
+        ((3)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'service) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string host = 4[json_name = "host"];
+        ((4)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'host) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string description = 5[json_name = "description"];
+        ((5)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'description) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional bool once = 6[json_name = "once"];
+        ((6)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-boolean-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'once) value)
+                (cl:setf (cl:ldb (cl:byte 1 5) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; repeated string tags = 7[json_name = "tags"];
+        ((7)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:vector-push-extend (pb:string-field value) (cl:slot-value self 'tags))
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional float ttl = 8[json_name = "ttl"];
         ((8)
-          (cl:multiple-value-bind (value new-index)
-              (varint:parse-int64-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'time) value)
-            (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string state = 2;
-        ((18)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'state) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string service = 3;
-        ((26)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'service) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string host = 4;
-        ((34)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'host) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string description = 5;
-        ((42)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'description) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional bool once = 6;
-        ((48)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-boolean-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'once) value)
-            (cl:setf (cl:ldb (cl:byte 1 5) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; repeated string tags = 7;
-        ((58)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:vector-push-extend (pb:string-field value) (cl:slot-value self 'tags))
-            (cl:setf index new-index)))
-        ;; optional float ttl = 8;
-        ((69)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-single-float-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'ttl) value)
-            (cl:setf (cl:ldb (cl:byte 1 7) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
+          (cl:cond
+            ((cl:= wire-type wire-format:+fixed32+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-single-float-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'ttl) value)
+                (cl:setf (cl:ldb (cl:byte 1 7) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
         (cl:t
-          (cl:when (cl:= (cl:logand tag 7) 4)
+          (cl:when (cl:= wire-type wire-format:+end-group+)
             (cl:return-from pb:merge-from-array index))
-          (cl:setf index (wire-format:skip-field buffer index limit tag)))))))
+          (cl:setf index (wire-format:skip-field field-number wire-type buffer index limit)))))))
 
 (cl:defmethod pb:merge-from-message ((self state) (from state))
   (cl:let ((v (cl:slot-value self 'tags))
@@ -444,7 +495,7 @@
   (cl:when (cl:logbitp 7 (cl:slot-value from '%has-bits%))
     (cl:setf (cl:slot-value self 'ttl) (cl:slot-value from 'ttl))
     (cl:setf (cl:ldb (cl:byte 1 7) (cl:slot-value self '%has-bits%)) 1))
-)
+  )
 
 
 (cl:defclass event (pb:protocol-buffer)
@@ -484,9 +535,13 @@
    :accessor attributes
    :initform (cl:make-array
               0
-              :element-type 'com.aphyr.riemann::attribute
+              :element-type 'io.riemann.riemann::attribute
               :fill-pointer 0 :adjustable cl:t)
-   :type (cl:vector com.aphyr.riemann::attribute))
+   :type (cl:vector io.riemann.riemann::attribute))
+  (time-micros
+   :accessor time-micros
+   :initform 0
+   :type (cl:signed-byte 64))
   (metric-sint64
    :accessor metric-sint64
    :initform 0
@@ -502,15 +557,17 @@
   (%has-bits%
    :accessor %has-bits%
    :initform 0
-   :type (cl:unsigned-byte 11))
+   :type (cl:unsigned-byte 12))
   (pb::%cached-size%
    :initform 0
    :type (cl:integer 0 #.(cl:1- cl:array-dimension-limit)))
   ))
 
-(cl:export 'event)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'event))
 
-(cl:export 'time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'time))
 
 
 (cl:defmethod (cl:setf time) :after (x (self event))
@@ -521,7 +578,8 @@
   (cl:defgeneric has-time (proto)))
 (cl:defmethod has-time ((self event))
   (cl:logbitp 0 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-time))
 
 (cl:unless (cl:fboundp 'clear-time)
   (cl:defgeneric clear-time (proto)))
@@ -529,9 +587,11 @@
   (cl:setf (cl:slot-value self 'time) 0)
   (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-time)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-time))
 
-(cl:export 'state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'state))
 
 
 (cl:defmethod (cl:setf state) :after (x (self event))
@@ -542,7 +602,8 @@
   (cl:defgeneric has-state (proto)))
 (cl:defmethod has-state ((self event))
   (cl:logbitp 1 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-state))
 
 (cl:unless (cl:fboundp 'clear-state)
   (cl:defgeneric clear-state (proto)))
@@ -550,9 +611,11 @@
   (cl:setf (cl:slot-value self 'state) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-state)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-state))
 
-(cl:export 'service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'service))
 
 
 (cl:defmethod (cl:setf service) :after (x (self event))
@@ -563,7 +626,8 @@
   (cl:defgeneric has-service (proto)))
 (cl:defmethod has-service ((self event))
   (cl:logbitp 2 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-service))
 
 (cl:unless (cl:fboundp 'clear-service)
   (cl:defgeneric clear-service (proto)))
@@ -571,9 +635,11 @@
   (cl:setf (cl:slot-value self 'service) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-service)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-service))
 
-(cl:export 'host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'host))
 
 
 (cl:defmethod (cl:setf host) :after (x (self event))
@@ -584,7 +650,8 @@
   (cl:defgeneric has-host (proto)))
 (cl:defmethod has-host ((self event))
   (cl:logbitp 3 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-host))
 
 (cl:unless (cl:fboundp 'clear-host)
   (cl:defgeneric clear-host (proto)))
@@ -592,9 +659,11 @@
   (cl:setf (cl:slot-value self 'host) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-host)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-host))
 
-(cl:export 'description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'description))
 
 
 (cl:defmethod (cl:setf description) :after (x (self event))
@@ -605,7 +674,8 @@
   (cl:defgeneric has-description (proto)))
 (cl:defmethod has-description ((self event))
   (cl:logbitp 4 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-description))
 
 (cl:unless (cl:fboundp 'clear-description)
   (cl:defgeneric clear-description (proto)))
@@ -613,9 +683,11 @@
   (cl:setf (cl:slot-value self 'description) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-description)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-description))
 
-(cl:export 'tags)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'tags))
 
 (cl:unless (cl:fboundp 'clear-tags)
   (cl:defgeneric clear-tags (proto)))
@@ -626,9 +698,11 @@
             :element-type 'pb::%sf%
             :fill-pointer 0 :adjustable cl:t))
   (cl:values))
-(cl:export 'clear-tags)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-tags))
 
-(cl:export 'ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'ttl))
 
 
 (cl:defmethod (cl:setf ttl) :after (x (self event))
@@ -639,7 +713,8 @@
   (cl:defgeneric has-ttl (proto)))
 (cl:defmethod has-ttl ((self event))
   (cl:logbitp 6 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-ttl))
 
 (cl:unless (cl:fboundp 'clear-ttl)
   (cl:defgeneric clear-ttl (proto)))
@@ -647,81 +722,117 @@
   (cl:setf (cl:slot-value self 'ttl) 0f0)
   (cl:setf (cl:ldb (cl:byte 1 6) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-ttl)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-ttl))
 
-(cl:export 'attributes)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'attributes))
 
 (cl:unless (cl:fboundp 'clear-attributes)
   (cl:defgeneric clear-attributes (proto)))
 (cl:defmethod clear-attributes ((self event))
   (cl:setf (cl:slot-value self 'attributes)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::attribute
+           (cl:make-array 0 :element-type 'io.riemann.riemann::attribute
             :fill-pointer 0 :adjustable cl:t))
   (cl:values))
-(cl:export 'clear-attributes)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-attributes))
 
-(cl:export 'metric-sint64)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'time-micros))
+
+
+(cl:defmethod (cl:setf time-micros) :after (x (self event))
+  (cl:declare (cl:ignore x))
+  (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 1))
+
+(cl:unless (cl:fboundp 'has-time-micros)
+  (cl:defgeneric has-time-micros (proto)))
+(cl:defmethod has-time-micros ((self event))
+  (cl:logbitp 8 (cl:slot-value self '%has-bits%)))
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-time-micros))
+
+(cl:unless (cl:fboundp 'clear-time-micros)
+  (cl:defgeneric clear-time-micros (proto)))
+(cl:defmethod clear-time-micros ((self event))
+  (cl:setf (cl:slot-value self 'time-micros) 0)
+  (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 0)
+  (cl:values))
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-time-micros))
+
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'metric-sint64))
 
 
 (cl:defmethod (cl:setf metric-sint64) :after (x (self event))
   (cl:declare (cl:ignore x))
-  (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 1))
+  (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 1))
 
 (cl:unless (cl:fboundp 'has-metric-sint64)
   (cl:defgeneric has-metric-sint64 (proto)))
 (cl:defmethod has-metric-sint64 ((self event))
-  (cl:logbitp 8 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-metric-sint64)
+  (cl:logbitp 9 (cl:slot-value self '%has-bits%)))
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-metric-sint64))
 
 (cl:unless (cl:fboundp 'clear-metric-sint64)
   (cl:defgeneric clear-metric-sint64 (proto)))
 (cl:defmethod clear-metric-sint64 ((self event))
   (cl:setf (cl:slot-value self 'metric-sint64) 0)
-  (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 0)
+  (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-metric-sint64)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-metric-sint64))
 
-(cl:export 'metric-d)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'metric-d))
 
 
 (cl:defmethod (cl:setf metric-d) :after (x (self event))
   (cl:declare (cl:ignore x))
-  (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 1))
+  (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 1))
 
 (cl:unless (cl:fboundp 'has-metric-d)
   (cl:defgeneric has-metric-d (proto)))
 (cl:defmethod has-metric-d ((self event))
-  (cl:logbitp 9 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-metric-d)
+  (cl:logbitp 10 (cl:slot-value self '%has-bits%)))
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-metric-d))
 
 (cl:unless (cl:fboundp 'clear-metric-d)
   (cl:defgeneric clear-metric-d (proto)))
 (cl:defmethod clear-metric-d ((self event))
   (cl:setf (cl:slot-value self 'metric-d) 0d0)
-  (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 0)
+  (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-metric-d)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-metric-d))
 
-(cl:export 'metric-f)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'metric-f))
 
 
 (cl:defmethod (cl:setf metric-f) :after (x (self event))
   (cl:declare (cl:ignore x))
-  (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 1))
+  (cl:setf (cl:ldb (cl:byte 1 11) (cl:slot-value self '%has-bits%)) 1))
 
 (cl:unless (cl:fboundp 'has-metric-f)
   (cl:defgeneric has-metric-f (proto)))
 (cl:defmethod has-metric-f ((self event))
-  (cl:logbitp 10 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-metric-f)
+  (cl:logbitp 11 (cl:slot-value self '%has-bits%)))
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-metric-f))
 
 (cl:unless (cl:fboundp 'clear-metric-f)
   (cl:defgeneric clear-metric-f (proto)))
 (cl:defmethod clear-metric-f ((self event))
   (cl:setf (cl:slot-value self 'metric-f) 0f0)
-  (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 0)
+  (cl:setf (cl:ldb (cl:byte 1 11) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-metric-f)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-metric-f))
 
 
 (cl:defmethod cl:print-object ((self event) stream)
@@ -742,10 +853,12 @@
         (cl:format stream " ~_ttl: ~s" (ttl self)))
       (cl:format stream " ~_attributes: ~s" (attributes self))
       (cl:when (cl:logbitp 8 (cl:slot-value self '%has-bits%))
-        (cl:format stream " ~_metric-sint64: ~s" (metric-sint64 self)))
+        (cl:format stream " ~_time-micros: ~s" (time-micros self)))
       (cl:when (cl:logbitp 9 (cl:slot-value self '%has-bits%))
-        (cl:format stream " ~_metric-d: ~s" (metric-d self)))
+        (cl:format stream " ~_metric-sint64: ~s" (metric-sint64 self)))
       (cl:when (cl:logbitp 10 (cl:slot-value self '%has-bits%))
+        (cl:format stream " ~_metric-d: ~s" (metric-d self)))
+      (cl:when (cl:logbitp 11 (cl:slot-value self '%has-bits%))
         (cl:format stream " ~_metric-f: ~s" (metric-f self)))
       ))
   (cl:values))
@@ -761,6 +874,7 @@
   (cl:when (cl:logbitp 4 (cl:slot-value self '%has-bits%))
     (cl:setf (cl:slot-value self 'description) (pb:string-field "")))
   (cl:setf (cl:slot-value self 'ttl) 0f0)
+  (cl:setf (cl:slot-value self 'time-micros) 0)
   (cl:setf (cl:slot-value self 'metric-sint64) 0)
   (cl:setf (cl:slot-value self 'metric-d) 0d0)
   (cl:setf (cl:slot-value self 'metric-f) 0f0)
@@ -770,7 +884,7 @@
             :element-type 'pb::%sf%
             :fill-pointer 0 :adjustable cl:t))
   (cl:setf (cl:slot-value self 'attributes)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::attribute
+           (cl:make-array 0 :element-type 'io.riemann.riemann::attribute
             :fill-pointer 0 :adjustable cl:t))
   (cl:setf (cl:slot-value self '%has-bits%) 0)
   (cl:values))
@@ -785,54 +899,58 @@
 
 (cl:defmethod pb:octet-size ((self event))
   (cl:let ((size 0))
-    ;; optional int64 time = 1;
+    ;; optional int64 time = 1[json_name = "time"];
     (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 (varint:length64 (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time))))))
-    ;; optional string state = 2;
+    ;; optional string state = 2[json_name = "state"];
     (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'state))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string service = 3;
+    ;; optional string service = 3[json_name = "service"];
     (cl:when (cl:logbitp 2 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'service))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string host = 4;
+    ;; optional string host = 4[json_name = "host"];
     (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'host))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string description = 5;
+    ;; optional string description = 5[json_name = "description"];
     (cl:when (cl:logbitp 4 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'description))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional float ttl = 8;
+    ;; optional float ttl = 8[json_name = "ttl"];
     (cl:when (cl:logbitp 6 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 4)))
-    ;; optional sint64 metric_sint64 = 13;
+    ;; optional int64 time_micros = 10[json_name = "timeMicros"];
     (cl:when (cl:logbitp 8 (cl:slot-value self '%has-bits%))
       (cl:incf size
-        (cl:+ 1 (varint:length64 (wire-format:zig-zag-encode64 (cl:slot-value self 'metric-sint64))))))
-    ;; optional double metric_d = 14;
+        (cl:+ 1 (varint:length64 (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time-micros))))))
+    ;; optional sint64 metric_sint64 = 13[json_name = "metricSint64"];
     (cl:when (cl:logbitp 9 (cl:slot-value self '%has-bits%))
       (cl:incf size
-        (cl:+ 1 8)))
-    ;; optional float metric_f = 15;
+        (cl:+ 1 (varint:length64 (wire-format:zig-zag-encode64 (cl:slot-value self 'metric-sint64))))))
+    ;; optional double metric_d = 14[json_name = "metricD"];
     (cl:when (cl:logbitp 10 (cl:slot-value self '%has-bits%))
       (cl:incf size
+        (cl:+ 1 8)))
+    ;; optional float metric_f = 15[json_name = "metricF"];
+    (cl:when (cl:logbitp 11 (cl:slot-value self '%has-bits%))
+      (cl:incf size
         (cl:+ 1 4)))
-    ;; repeated string tags = 7;
+    ;; repeated string tags = 7[json_name = "tags"];
     (cl:let* ((x (cl:slot-value self 'tags))
               (length (cl:length x)))
       (cl:incf size (cl:* 1 length))
       (cl:dotimes (i length)
         (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:aref x i))))
   (cl:+ s (varint:length32 s))))))
-    ;; repeated .Attribute attributes = 9;
+    ;; repeated .Attribute attributes = 9[json_name = "attributes"];
     (cl:let* ((v (cl:slot-value self 'attributes))
               (length (cl:length v)))
       (cl:incf size (cl:* 1 length))
@@ -846,55 +964,65 @@
   (cl:declare (cl:type com.google.base:octet-vector buffer)
               (cl:type com.google.base:vector-index index limit)
               (cl:ignorable buffer limit))
-  ;; optional int64 time = 1;
+  ;; optional int64 time = 1[json_name = "time"];
   (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 8))
-    (cl:setf index (varint:encode-uint64-carefully buffer index limit (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time)))))
-  ;; optional string state = 2;
+    (cl:setf index
+             (varint:encode-uint64-carefully buffer index limit (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time)))))
+  ;; optional string state = 2[json_name = "state"];
   (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 18))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'state) 'pb::%octets%))))
-  ;; optional string service = 3;
+  ;; optional string service = 3[json_name = "service"];
   (cl:when (cl:logbitp 2 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 26))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'service) 'pb::%octets%))))
-  ;; optional string host = 4;
+  ;; optional string host = 4[json_name = "host"];
   (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 34))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'host) 'pb::%octets%))))
-  ;; optional string description = 5;
+  ;; optional string description = 5[json_name = "description"];
   (cl:when (cl:logbitp 4 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 42))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'description) 'pb::%octets%))))
-  ;; repeated string tags = 7;
+  ;; repeated string tags = 7[json_name = "tags"];
   (cl:let* ((v (cl:slot-value self 'tags))
             (length (cl:length v)))
     (cl:dotimes (i length)
       (cl:setf index (varint:encode-uint32-carefully buffer index limit 58))
       (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:aref v i) 'pb::%octets%)))))
-  ;; optional float ttl = 8;
+  ;; optional float ttl = 8[json_name = "ttl"];
   (cl:when (cl:logbitp 6 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 69))
-    (cl:setf index (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'ttl))))
-  ;; repeated .Attribute attributes = 9;
+    (cl:setf index
+             (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'ttl))))
+  ;; repeated .Attribute attributes = 9[json_name = "attributes"];
   (cl:let* ((v (cl:slot-value self 'attributes))
             (length (cl:length v)))
     (cl:loop for i from 0 below length do
        (cl:setf index (varint:encode-uint32-carefully buffer index limit 74))
        (cl:setf index (varint:encode-uint32-carefully buffer index limit (cl:slot-value (cl:aref v i) 'pb::%cached-size%)))
        (cl:setf index (pb:serialize (cl:aref v i) buffer index limit))))
-  ;; optional sint64 metric_sint64 = 13;
+  ;; optional int64 time_micros = 10[json_name = "timeMicros"];
   (cl:when (cl:logbitp 8 (cl:slot-value self '%has-bits%))
-    (cl:setf index (varint:encode-uint32-carefully buffer index limit 104))
-    (cl:setf index (varint:encode-uint64-carefully buffer index limit (wire-format:zig-zag-encode64 (cl:slot-value self 'metric-sint64)))))
-  ;; optional double metric_d = 14;
+    (cl:setf index (varint:encode-uint32-carefully buffer index limit 80))
+    (cl:setf index
+             (varint:encode-uint64-carefully buffer index limit (cl:ldb (cl:byte 64 0) (cl:slot-value self 'time-micros)))))
+  ;; optional sint64 metric_sint64 = 13[json_name = "metricSint64"];
   (cl:when (cl:logbitp 9 (cl:slot-value self '%has-bits%))
-    (cl:setf index (varint:encode-uint32-carefully buffer index limit 113))
-    (cl:setf index (wire-format:write-double-float-carefully buffer index limit (cl:slot-value self 'metric-d))))
-  ;; optional float metric_f = 15;
+    (cl:setf index (varint:encode-uint32-carefully buffer index limit 104))
+    (cl:setf index
+             (varint:encode-uint64-carefully buffer index limit (wire-format:zig-zag-encode64 (cl:slot-value self 'metric-sint64)))))
+  ;; optional double metric_d = 14[json_name = "metricD"];
   (cl:when (cl:logbitp 10 (cl:slot-value self '%has-bits%))
+    (cl:setf index (varint:encode-uint32-carefully buffer index limit 113))
+    (cl:setf index
+             (wire-format:write-double-float-carefully buffer index limit (cl:slot-value self 'metric-d))))
+  ;; optional float metric_f = 15[json_name = "metricF"];
+  (cl:when (cl:logbitp 11 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 125))
-    (cl:setf index (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'metric-f))))
+    (cl:setf index
+             (wire-format:write-single-float-carefully buffer index limit (cl:slot-value self 'metric-f))))
   index)
 
 (cl:defmethod pb:merge-from-array ((self event) buffer start limit)
@@ -903,96 +1031,139 @@
   (cl:do ((index start index))
       ((cl:>= index limit) index)
     (cl:declare (cl:type com.google.base:vector-index index))
-    (cl:multiple-value-bind (tag new-index)
-        (varint:parse-uint32-carefully buffer index limit)
+    (cl:multiple-value-bind (field-number wire-type new-index)
+        (wire-format:parse-tag buffer index limit)
       (cl:setf index new-index)
-      (cl:case tag
-        ;; optional int64 time = 1;
+      (cl:case field-number
+        ;; optional int64 time = 1[json_name = "time"];
+        ((1)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (varint:parse-int64-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'time) value)
+                (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string state = 2[json_name = "state"];
+        ((2)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'state) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string service = 3[json_name = "service"];
+        ((3)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'service) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string host = 4[json_name = "host"];
+        ((4)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'host) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string description = 5[json_name = "description"];
+        ((5)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'description) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; repeated string tags = 7[json_name = "tags"];
+        ((7)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:vector-push-extend (pb:string-field value) (cl:slot-value self 'tags))
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional float ttl = 8[json_name = "ttl"];
         ((8)
-          (cl:multiple-value-bind (value new-index)
-              (varint:parse-int64-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'time) value)
-            (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string state = 2;
-        ((18)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'state) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string service = 3;
-        ((26)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'service) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 2) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string host = 4;
-        ((34)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'host) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string description = 5;
-        ((42)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'description) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 4) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; repeated string tags = 7;
-        ((58)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:vector-push-extend (pb:string-field value) (cl:slot-value self 'tags))
-            (cl:setf index new-index)))
-        ;; optional float ttl = 8;
-        ((69)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-single-float-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'ttl) value)
-            (cl:setf (cl:ldb (cl:byte 1 6) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; repeated .Attribute attributes = 9;
-        ((74)
-          (cl:multiple-value-bind (length new-index)
-              (varint:parse-uint31-carefully buffer index limit)
-            (cl:when (cl:> (cl:+ new-index length) limit)
-              (cl:error "buffer overflow"))
-            (cl:let ((message (cl:make-instance 'com.aphyr.riemann::attribute)))
-              (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
-              (cl:when (cl:not (cl:= index (cl:+ new-index length)))
-                (cl:error "buffer overflow"))
-              (cl:vector-push-extend message (cl:slot-value self 'attributes)))))
-        ;; optional sint64 metric_sint64 = 13;
-        ((104)
-          (cl:multiple-value-bind (value new-index)
-              (cl:multiple-value-bind (x new-index)
+          (cl:cond
+            ((cl:= wire-type wire-format:+fixed32+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-single-float-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'ttl) value)
+                (cl:setf (cl:ldb (cl:byte 1 6) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; repeated .Attribute attributes = 9[json_name = "attributes"];
+        ((9)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (length new-index)
+                  (varint:parse-uint31-carefully buffer index limit)
+                (cl:when (cl:> (cl:+ new-index length) limit)
+                  (cl:error 'wire-format:data-exhausted))
+                (cl:let ((message (cl:make-instance 'io.riemann.riemann::attribute)))
+                  (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
+                  (cl:when (cl:/= index (cl:+ new-index length))
+                    (cl:error 'wire-format:alignment))
+                  (cl:vector-push-extend message (cl:slot-value self 'attributes)))))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional int64 time_micros = 10[json_name = "timeMicros"];
+        ((10)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (varint:parse-int64-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'time-micros) value)
+                (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional sint64 metric_sint64 = 13[json_name = "metricSint64"];
+        ((13)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (cl:multiple-value-bind (x new-index)
     (varint:parse-uint64-carefully buffer index limit)
   (cl:values (wire-format:zig-zag-decode64 x) new-index))
-            (cl:setf (cl:slot-value self 'metric-sint64) value)
-            (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional double metric_d = 14;
-        ((113)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-double-float-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'metric-d) value)
-            (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional float metric_f = 15;
-        ((125)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-single-float-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'metric-f) value)
-            (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
+                (cl:setf (cl:slot-value self 'metric-sint64) value)
+                (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional double metric_d = 14[json_name = "metricD"];
+        ((14)
+          (cl:cond
+            ((cl:= wire-type wire-format:+fixed64+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-double-float-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'metric-d) value)
+                (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional float metric_f = 15[json_name = "metricF"];
+        ((15)
+          (cl:cond
+            ((cl:= wire-type wire-format:+fixed32+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-single-float-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'metric-f) value)
+                (cl:setf (cl:ldb (cl:byte 1 11) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
         (cl:t
-          (cl:when (cl:= (cl:logand tag 7) 4)
+          (cl:when (cl:= wire-type wire-format:+end-group+)
             (cl:return-from pb:merge-from-array index))
-          (cl:setf index (wire-format:skip-field buffer index limit tag)))))))
+          (cl:setf index (wire-format:skip-field field-number wire-type buffer index limit)))))))
 
 (cl:defmethod pb:merge-from-message ((self event) (from event))
   (cl:let ((v (cl:slot-value self 'tags))
@@ -1023,15 +1194,18 @@
     (cl:setf (cl:slot-value self 'ttl) (cl:slot-value from 'ttl))
     (cl:setf (cl:ldb (cl:byte 1 6) (cl:slot-value self '%has-bits%)) 1))
   (cl:when (cl:logbitp 8 (cl:slot-value from '%has-bits%))
-    (cl:setf (cl:slot-value self 'metric-sint64) (cl:slot-value from 'metric-sint64))
+    (cl:setf (cl:slot-value self 'time-micros) (cl:slot-value from 'time-micros))
     (cl:setf (cl:ldb (cl:byte 1 8) (cl:slot-value self '%has-bits%)) 1))
   (cl:when (cl:logbitp 9 (cl:slot-value from '%has-bits%))
-    (cl:setf (cl:slot-value self 'metric-d) (cl:slot-value from 'metric-d))
+    (cl:setf (cl:slot-value self 'metric-sint64) (cl:slot-value from 'metric-sint64))
     (cl:setf (cl:ldb (cl:byte 1 9) (cl:slot-value self '%has-bits%)) 1))
   (cl:when (cl:logbitp 10 (cl:slot-value from '%has-bits%))
-    (cl:setf (cl:slot-value self 'metric-f) (cl:slot-value from 'metric-f))
+    (cl:setf (cl:slot-value self 'metric-d) (cl:slot-value from 'metric-d))
     (cl:setf (cl:ldb (cl:byte 1 10) (cl:slot-value self '%has-bits%)) 1))
-)
+  (cl:when (cl:logbitp 11 (cl:slot-value from '%has-bits%))
+    (cl:setf (cl:slot-value self 'metric-f) (cl:slot-value from 'metric-f))
+    (cl:setf (cl:ldb (cl:byte 1 11) (cl:slot-value self '%has-bits%)) 1))
+  )
 
 
 (cl:defclass query (pb:protocol-buffer)
@@ -1049,9 +1223,11 @@
    :type (cl:integer 0 #.(cl:1- cl:array-dimension-limit)))
   ))
 
-(cl:export 'query)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'query))
 
-(cl:export 'string)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'string))
 
 
 (cl:defmethod (cl:setf string) :after (x (self query))
@@ -1062,7 +1238,8 @@
   (cl:defgeneric has-string (proto)))
 (cl:defmethod has-string ((self query))
   (cl:logbitp 0 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-string)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-string))
 
 (cl:unless (cl:fboundp 'clear-string)
   (cl:defgeneric clear-string (proto)))
@@ -1070,7 +1247,8 @@
   (cl:setf (cl:slot-value self 'string) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-string)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-string))
 
 
 (cl:defmethod cl:print-object ((self query) stream)
@@ -1092,7 +1270,7 @@
 
 (cl:defmethod pb:octet-size ((self query))
   (cl:let ((size 0))
-    ;; optional string string = 1;
+    ;; optional string string = 1[json_name = "string"];
     (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'string))))
@@ -1104,7 +1282,7 @@
   (cl:declare (cl:type com.google.base:octet-vector buffer)
               (cl:type com.google.base:vector-index index limit)
               (cl:ignorable buffer limit))
-  ;; optional string string = 1;
+  ;; optional string string = 1[json_name = "string"];
   (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 10))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'string) 'pb::%octets%))))
@@ -1116,27 +1294,30 @@
   (cl:do ((index start index))
       ((cl:>= index limit) index)
     (cl:declare (cl:type com.google.base:vector-index index))
-    (cl:multiple-value-bind (tag new-index)
-        (varint:parse-uint32-carefully buffer index limit)
+    (cl:multiple-value-bind (field-number wire-type new-index)
+        (wire-format:parse-tag buffer index limit)
       (cl:setf index new-index)
-      (cl:case tag
-        ;; optional string string = 1;
-        ((10)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'string) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
+      (cl:case field-number
+        ;; optional string string = 1[json_name = "string"];
+        ((1)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'string) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
         (cl:t
-          (cl:when (cl:= (cl:logand tag 7) 4)
+          (cl:when (cl:= wire-type wire-format:+end-group+)
             (cl:return-from pb:merge-from-array index))
-          (cl:setf index (wire-format:skip-field buffer index limit tag)))))))
+          (cl:setf index (wire-format:skip-field field-number wire-type buffer index limit)))))))
 
 (cl:defmethod pb:merge-from-message ((self query) (from query))
   (cl:when (cl:logbitp 0 (cl:slot-value from '%has-bits%))
     (cl:setf (cl:slot-value self 'string) (cl:slot-value from 'string))
     (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1))
-)
+  )
 
 
 (cl:defclass msg (pb:protocol-buffer)
@@ -1153,20 +1334,20 @@
    :accessor states
    :initform (cl:make-array
               0
-              :element-type 'com.aphyr.riemann::state
+              :element-type 'io.riemann.riemann::state
               :fill-pointer 0 :adjustable cl:t)
-   :type (cl:vector com.aphyr.riemann::state))
+   :type (cl:vector io.riemann.riemann::state))
   (query
    :writer (cl:setf query)
    :initform cl:nil
-   :type (cl:or cl:null com.aphyr.riemann::query))
+   :type (cl:or cl:null io.riemann.riemann::query))
   (events
    :accessor events
    :initform (cl:make-array
               0
-              :element-type 'com.aphyr.riemann::event
+              :element-type 'io.riemann.riemann::event
               :fill-pointer 0 :adjustable cl:t)
-   :type (cl:vector com.aphyr.riemann::event))
+   :type (cl:vector io.riemann.riemann::event))
   (%has-bits%
    :accessor %has-bits%
    :initform 0
@@ -1176,9 +1357,11 @@
    :type (cl:integer 0 #.(cl:1- cl:array-dimension-limit)))
   ))
 
-(cl:export 'msg)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'msg))
 
-(cl:export 'ok)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'ok))
 
 
 (cl:defmethod (cl:setf ok) :after (x (self msg))
@@ -1189,7 +1372,8 @@
   (cl:defgeneric has-ok (proto)))
 (cl:defmethod has-ok ((self msg))
   (cl:logbitp 0 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-ok)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-ok))
 
 (cl:unless (cl:fboundp 'clear-ok)
   (cl:defgeneric clear-ok (proto)))
@@ -1197,9 +1381,11 @@
   (cl:setf (cl:slot-value self 'ok) cl:nil)
   (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-ok)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-ok))
 
-(cl:export 'error)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'error))
 
 
 (cl:defmethod (cl:setf error) :after (x (self msg))
@@ -1210,7 +1396,8 @@
   (cl:defgeneric has-error (proto)))
 (cl:defmethod has-error ((self msg))
   (cl:logbitp 1 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-error)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-error))
 
 (cl:unless (cl:fboundp 'clear-error)
   (cl:defgeneric clear-error (proto)))
@@ -1218,27 +1405,31 @@
   (cl:setf (cl:slot-value self 'error) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-error)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-error))
 
-(cl:export 'states)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'states))
 
 (cl:unless (cl:fboundp 'clear-states)
   (cl:defgeneric clear-states (proto)))
 (cl:defmethod clear-states ((self msg))
   (cl:setf (cl:slot-value self 'states)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::state
+           (cl:make-array 0 :element-type 'io.riemann.riemann::state
             :fill-pointer 0 :adjustable cl:t))
   (cl:values))
-(cl:export 'clear-states)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-states))
 
-(cl:export 'query)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'query))
 
 (cl:unless (cl:fboundp 'query)
   (cl:defgeneric query (proto)))
 (cl:defmethod query ((self msg))
   (cl:let ((result (cl:slot-value self 'query)))
     (cl:when (cl:null result)
-      (cl:setf result (cl:make-instance 'com.aphyr.riemann::query))
+      (cl:setf result (cl:make-instance 'io.riemann.riemann::query))
       (cl:setf (cl:slot-value self 'query) result))
       (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1)
     result))
@@ -1251,7 +1442,8 @@
   (cl:defgeneric has-query (proto)))
 (cl:defmethod has-query ((self msg))
   (cl:logbitp 3 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-query)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-query))
 
 (cl:unless (cl:fboundp 'clear-query)
   (cl:defgeneric clear-query (proto)))
@@ -1259,18 +1451,21 @@
   (cl:setf (cl:slot-value self 'query) cl:nil)
   (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-query)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-query))
 
-(cl:export 'events)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'events))
 
 (cl:unless (cl:fboundp 'clear-events)
   (cl:defgeneric clear-events (proto)))
 (cl:defmethod clear-events ((self msg))
   (cl:setf (cl:slot-value self 'events)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::event
+           (cl:make-array 0 :element-type 'io.riemann.riemann::event
             :fill-pointer 0 :adjustable cl:t))
   (cl:values))
-(cl:export 'clear-events)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-events))
 
 
 (cl:defmethod cl:print-object ((self msg) stream)
@@ -1294,10 +1489,10 @@
   (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
     (cl:setf (cl:slot-value self 'query) cl:nil))
   (cl:setf (cl:slot-value self 'states)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::state
+           (cl:make-array 0 :element-type 'io.riemann.riemann::state
             :fill-pointer 0 :adjustable cl:t))
   (cl:setf (cl:slot-value self 'events)
-           (cl:make-array 0 :element-type 'com.aphyr.riemann::event
+           (cl:make-array 0 :element-type 'io.riemann.riemann::event
             :fill-pointer 0 :adjustable cl:t))
   (cl:setf (cl:slot-value self '%has-bits%) 0)
   (cl:values))
@@ -1312,27 +1507,27 @@
 
 (cl:defmethod pb:octet-size ((self msg))
   (cl:let ((size 0))
-    ;; optional bool ok = 2;
+    ;; optional bool ok = 2[json_name = "ok"];
     (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
       (cl:incf size
         (cl:+ 1 1)))
-    ;; optional string error = 3;
+    ;; optional string error = 3[json_name = "error"];
     (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'error))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional .Query query = 5;
+    ;; optional .Query query = 5[json_name = "query"];
     (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
       (cl:let ((s (pb:octet-size (cl:slot-value self 'query))))
         (cl:incf size (cl:+ 1 s (varint:length32 s)))))
-    ;; repeated .State states = 4;
+    ;; repeated .State states = 4[json_name = "states"];
     (cl:let* ((v (cl:slot-value self 'states))
               (length (cl:length v)))
       (cl:incf size (cl:* 1 length))
       (cl:dotimes (i length)
         (cl:let ((s (pb:octet-size (cl:aref v i))))
           (cl:incf size (cl:+ s (varint:length32 s))))))
-    ;; repeated .Event events = 6;
+    ;; repeated .Event events = 6[json_name = "events"];
     (cl:let* ((v (cl:slot-value self 'events))
               (length (cl:length v)))
       (cl:incf size (cl:* 1 length))
@@ -1346,27 +1541,28 @@
   (cl:declare (cl:type com.google.base:octet-vector buffer)
               (cl:type com.google.base:vector-index index limit)
               (cl:ignorable buffer limit))
-  ;; optional bool ok = 2;
+  ;; optional bool ok = 2[json_name = "ok"];
   (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 16))
-    (cl:setf index (wire-format:write-boolean-carefully buffer index limit (cl:slot-value self 'ok))))
-  ;; optional string error = 3;
+    (cl:setf index
+             (wire-format:write-boolean-carefully buffer index limit (cl:slot-value self 'ok))))
+  ;; optional string error = 3[json_name = "error"];
   (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 26))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'error) 'pb::%octets%))))
-  ;; repeated .State states = 4;
+  ;; repeated .State states = 4[json_name = "states"];
   (cl:let* ((v (cl:slot-value self 'states))
             (length (cl:length v)))
     (cl:loop for i from 0 below length do
        (cl:setf index (varint:encode-uint32-carefully buffer index limit 34))
        (cl:setf index (varint:encode-uint32-carefully buffer index limit (cl:slot-value (cl:aref v i) 'pb::%cached-size%)))
        (cl:setf index (pb:serialize (cl:aref v i) buffer index limit))))
-  ;; optional .Query query = 5;
+  ;; optional .Query query = 5[json_name = "query"];
   (cl:when (cl:logbitp 3 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 42))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit (cl:slot-value (cl:slot-value self 'query) 'pb::%cached-size%)))
     (cl:setf index (pb:serialize (cl:slot-value self 'query) buffer index limit)))
-  ;; repeated .Event events = 6;
+  ;; repeated .Event events = 6[json_name = "events"];
   (cl:let* ((v (cl:slot-value self 'events))
             (length (cl:length v)))
     (cl:loop for i from 0 below length do
@@ -1381,64 +1577,79 @@
   (cl:do ((index start index))
       ((cl:>= index limit) index)
     (cl:declare (cl:type com.google.base:vector-index index))
-    (cl:multiple-value-bind (tag new-index)
-        (varint:parse-uint32-carefully buffer index limit)
+    (cl:multiple-value-bind (field-number wire-type new-index)
+        (wire-format:parse-tag buffer index limit)
       (cl:setf index new-index)
-      (cl:case tag
-        ;; optional bool ok = 2;
-        ((16)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-boolean-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'ok) value)
-            (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string error = 3;
-        ((26)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'error) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; repeated .State states = 4;
-        ((34)
-          (cl:multiple-value-bind (length new-index)
-              (varint:parse-uint31-carefully buffer index limit)
-            (cl:when (cl:> (cl:+ new-index length) limit)
-              (cl:error "buffer overflow"))
-            (cl:let ((message (cl:make-instance 'com.aphyr.riemann::state)))
-              (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
-              (cl:when (cl:not (cl:= index (cl:+ new-index length)))
-                (cl:error "buffer overflow"))
-              (cl:vector-push-extend message (cl:slot-value self 'states)))))
-        ;; optional .Query query = 5;
-        ((42)
-          (cl:multiple-value-bind (length new-index)
-              (varint:parse-uint31-carefully buffer index limit)
-            (cl:when (cl:> (cl:+ new-index length) limit)
-              (cl:error "buffer overflow"))
-            (cl:let ((message (cl:slot-value self 'query)))
-              (cl:when (cl:null message)
-                (cl:setf message (cl:make-instance 'com.aphyr.riemann::query))
-                (cl:setf (cl:slot-value self 'query) message)
-                (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1))
-              (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
-              (cl:when (cl:not (cl:= index (cl:+ new-index length)))
-                (cl:error "buffer overflow")))))
-        ;; repeated .Event events = 6;
-        ((50)
-          (cl:multiple-value-bind (length new-index)
-              (varint:parse-uint31-carefully buffer index limit)
-            (cl:when (cl:> (cl:+ new-index length) limit)
-              (cl:error "buffer overflow"))
-            (cl:let ((message (cl:make-instance 'com.aphyr.riemann::event)))
-              (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
-              (cl:when (cl:not (cl:= index (cl:+ new-index length)))
-                (cl:error "buffer overflow"))
-              (cl:vector-push-extend message (cl:slot-value self 'events)))))
+      (cl:case field-number
+        ;; optional bool ok = 2[json_name = "ok"];
+        ((2)
+          (cl:cond
+            ((cl:= wire-type wire-format:+varint+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-boolean-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'ok) value)
+                (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string error = 3[json_name = "error"];
+        ((3)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'error) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; repeated .State states = 4[json_name = "states"];
+        ((4)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (length new-index)
+                  (varint:parse-uint31-carefully buffer index limit)
+                (cl:when (cl:> (cl:+ new-index length) limit)
+                  (cl:error 'wire-format:data-exhausted))
+                (cl:let ((message (cl:make-instance 'io.riemann.riemann::state)))
+                  (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
+                  (cl:when (cl:/= index (cl:+ new-index length))
+                    (cl:error 'wire-format:alignment))
+                  (cl:vector-push-extend message (cl:slot-value self 'states)))))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional .Query query = 5[json_name = "query"];
+        ((5)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (length new-index)
+                  (varint:parse-uint31-carefully buffer index limit)
+                (cl:when (cl:> (cl:+ new-index length) limit)
+                  (cl:error 'wire-format:data-exhausted))
+                (cl:let ((message (cl:slot-value self 'query)))
+                  (cl:when (cl:null message)
+                    (cl:setf message (cl:make-instance 'io.riemann.riemann::query))
+                    (cl:setf (cl:slot-value self 'query) message)
+                    (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1))
+                  (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
+                  (cl:when (cl:/= index (cl:+ new-index length))
+                    (cl:error 'wire-format:alignment)))))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; repeated .Event events = 6[json_name = "events"];
+        ((6)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (length new-index)
+                  (varint:parse-uint31-carefully buffer index limit)
+                (cl:when (cl:> (cl:+ new-index length) limit)
+                  (cl:error 'wire-format:data-exhausted))
+                (cl:let ((message (cl:make-instance 'io.riemann.riemann::event)))
+                  (cl:setf index (pb:merge-from-array message buffer new-index (cl:+ new-index length)))
+                  (cl:when (cl:/= index (cl:+ new-index length))
+                    (cl:error 'wire-format:alignment))
+                  (cl:vector-push-extend message (cl:slot-value self 'events)))))
+            (cl:t (cl:error 'wire-format:alignment))))
         (cl:t
-          (cl:when (cl:= (cl:logand tag 7) 4)
+          (cl:when (cl:= wire-type wire-format:+end-group+)
             (cl:return-from pb:merge-from-array index))
-          (cl:setf index (wire-format:skip-field buffer index limit tag)))))))
+          (cl:setf index (wire-format:skip-field field-number wire-type buffer index limit)))))))
 
 (cl:defmethod pb:merge-from-message ((self msg) (from msg))
   (cl:let* ((v (cl:slot-value self 'states))
@@ -1460,11 +1671,11 @@
   (cl:when (cl:logbitp 3 (cl:slot-value from '%has-bits%))
     (cl:let ((message (cl:slot-value self 'query)))
       (cl:when (cl:null message)
-        (cl:setf message (cl:make-instance 'com.aphyr.riemann::query))
+        (cl:setf message (cl:make-instance 'io.riemann.riemann::query))
         (cl:setf (cl:slot-value self 'query) message)
         (cl:setf (cl:ldb (cl:byte 1 3) (cl:slot-value self '%has-bits%)) 1))
      (pb:merge-from-message message (cl:slot-value from 'query))))
-)
+  )
 
 
 (cl:defclass attribute (pb:protocol-buffer)
@@ -1486,9 +1697,11 @@
    :type (cl:integer 0 #.(cl:1- cl:array-dimension-limit)))
   ))
 
-(cl:export 'attribute)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'attribute))
 
-(cl:export 'key)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'key))
 
 
 (cl:defmethod (cl:setf key) :after (x (self attribute))
@@ -1499,7 +1712,8 @@
   (cl:defgeneric has-key (proto)))
 (cl:defmethod has-key ((self attribute))
   (cl:logbitp 0 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-key)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-key))
 
 (cl:unless (cl:fboundp 'clear-key)
   (cl:defgeneric clear-key (proto)))
@@ -1507,9 +1721,11 @@
   (cl:setf (cl:slot-value self 'key) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-key)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-key))
 
-(cl:export 'value)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'value))
 
 
 (cl:defmethod (cl:setf value) :after (x (self attribute))
@@ -1520,7 +1736,8 @@
   (cl:defgeneric has-value (proto)))
 (cl:defmethod has-value ((self attribute))
   (cl:logbitp 1 (cl:slot-value self '%has-bits%)))
-(cl:export 'has-value)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'has-value))
 
 (cl:unless (cl:fboundp 'clear-value)
   (cl:defgeneric clear-value (proto)))
@@ -1528,7 +1745,8 @@
   (cl:setf (cl:slot-value self 'value) (pb:string-field ""))
   (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 0)
   (cl:values))
-(cl:export 'clear-value)
+(cl:eval-when (:load-toplevel :compile-toplevel :execute)
+  (cl:export 'clear-value))
 
 
 (cl:defmethod cl:print-object ((self attribute) stream)
@@ -1558,12 +1776,12 @@
 
 (cl:defmethod pb:octet-size ((self attribute))
   (cl:let ((size 0))
-    ;; required string key = 1;
+    ;; required string key = 1[json_name = "key"];
     (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'key))))
         (cl:+ s (varint:length32 s)))))
-    ;; optional string value = 2;
+    ;; optional string value = 2[json_name = "value"];
     (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
       (cl:incf size 1)
       (cl:incf size (cl:let ((s (pb::%utf8-string-length% (cl:slot-value self 'value))))
@@ -1575,11 +1793,11 @@
   (cl:declare (cl:type com.google.base:octet-vector buffer)
               (cl:type com.google.base:vector-index index limit)
               (cl:ignorable buffer limit))
-  ;; required string key = 1;
+  ;; required string key = 1[json_name = "key"];
   (cl:when (cl:logbitp 0 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 10))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'key) 'pb::%octets%))))
-  ;; optional string value = 2;
+  ;; optional string value = 2[json_name = "value"];
   (cl:when (cl:logbitp 1 (cl:slot-value self '%has-bits%))
     (cl:setf index (varint:encode-uint32-carefully buffer index limit 18))
     (cl:setf index (wire-format:write-octets-carefully buffer index limit (cl:slot-value (cl:slot-value self 'value) 'pb::%octets%))))
@@ -1591,28 +1809,34 @@
   (cl:do ((index start index))
       ((cl:>= index limit) index)
     (cl:declare (cl:type com.google.base:vector-index index))
-    (cl:multiple-value-bind (tag new-index)
-        (varint:parse-uint32-carefully buffer index limit)
+    (cl:multiple-value-bind (field-number wire-type new-index)
+        (wire-format:parse-tag buffer index limit)
       (cl:setf index new-index)
-      (cl:case tag
-        ;; required string key = 1;
-        ((10)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'key) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
-        ;; optional string value = 2;
-        ((18)
-          (cl:multiple-value-bind (value new-index)
-              (wire-format:read-octets-carefully buffer index limit)
-            (cl:setf (cl:slot-value self 'value) (pb:string-field value))
-            (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
-            (cl:setf index new-index)))
+      (cl:case field-number
+        ;; required string key = 1[json_name = "key"];
+        ((1)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'key) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 0) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
+        ;; optional string value = 2[json_name = "value"];
+        ((2)
+          (cl:cond
+            ((cl:= wire-type wire-format:+length-delimited+)
+              (cl:multiple-value-bind (value new-index)
+                  (wire-format:read-octets-carefully buffer index limit)
+                (cl:setf (cl:slot-value self 'value) (pb:string-field value))
+                (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1)
+                (cl:setf index new-index)))
+            (cl:t (cl:error 'wire-format:alignment))))
         (cl:t
-          (cl:when (cl:= (cl:logand tag 7) 4)
+          (cl:when (cl:= wire-type wire-format:+end-group+)
             (cl:return-from pb:merge-from-array index))
-          (cl:setf index (wire-format:skip-field buffer index limit tag)))))))
+          (cl:setf index (wire-format:skip-field field-number wire-type buffer index limit)))))))
 
 (cl:defmethod pb:merge-from-message ((self attribute) (from attribute))
   (cl:when (cl:logbitp 0 (cl:slot-value from '%has-bits%))
@@ -1621,6 +1845,6 @@
   (cl:when (cl:logbitp 1 (cl:slot-value from '%has-bits%))
     (cl:setf (cl:slot-value self 'value) (cl:slot-value from 'value))
     (cl:setf (cl:ldb (cl:byte 1 1) (cl:slot-value self '%has-bits%)) 1))
-)
+  )
 
 

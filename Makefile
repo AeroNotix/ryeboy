@@ -1,4 +1,5 @@
-PROTOBUF_DEFINITION=https://raw.githubusercontent.com/aphyr/riemann-java-client/master/src/main/proto/riemann/proto.proto
+PROTOBUF_DEFINITION=https://raw.githubusercontent.com/riemann/riemann-java-client/master/riemann-java-client/src/main/proto/riemann/proto.proto
+GOOGLE_STRUTIL_H=https://raw.githubusercontent.com/protocolbuffers/protobuf/master/src/google/protobuf/stubs/strutil.h
 PROTOC=$(shell which protoc 2> /dev/null)
 PROTOC_GEN_LISP=git://github.com/brown/protobuf.git
 PLUGIN=$(shell which protoc-gen-lisp 2> /dev/null)
@@ -21,6 +22,7 @@ $(PLUGIN_PATH):
 	@mkdir -p bin
 	@git clone $(PROTOC_GEN_LISP) /tmp/protobufs/ && \
 		cd /tmp/protobufs/protoc/lisp && \
+		wget $(GOOGLE_STRUTIL_H) && \
 		make
 	@cp /tmp/protobufs/protoc/lisp/protoc-gen-lisp ./bin/ && \
 		rm -rf /tmp/protobufs/
