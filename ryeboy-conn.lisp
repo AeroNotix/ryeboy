@@ -63,5 +63,5 @@
 (defun query (conn query-string)
   (let* ((msg (make-instance 'io.riemann.riemann:msg))
          (query (make-query query-string)))
-    (setf (io.riemanng.riemann:query msg) query)
+    (setf (io.riemann.riemann:query msg) query)
     (send-msg conn msg :query)))
