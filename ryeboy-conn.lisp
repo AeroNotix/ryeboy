@@ -19,29 +19,29 @@
                                          :stream :datagram))))
 
 (defun make-msg (&rest events)
-  (let* ((msg (make-instance 'com.aphyr.riemann:msg))
+  (let* ((msg (make-instance 'io.riemann.riemann:msg))
          (events (make-array (list (length events))
-                             :element-type 'com.aphyr.riemann:event
+                             :element-type 'io.riemann.riemann:event
                              :initial-contents events)))
-    (setf (com.aphyr.riemann:events msg) events)
+    (setf (io.riemann.riemann:events msg) events)
     msg))
 
 (defun handle-response (response request-type)
   (if (eq :events request-type)
       T
-      (com.aphyr.riemann:events response)))
+      (io.riemann.riemann:events response)))
 
 (defun read-reply (conn request-type)
   (let* ((wire-size (read-int conn))
          (buf (make-array wire-size :element-type '(unsigned-byte 8))))
     (read-sequence buf conn)
     (let ((response (bytes->msg buf)))
-      (when (com.aphyr.riemann:has-ok response)
-        (if (com.aphyr.riemann:ok response)
+      (when (io.riemann.riemann:has-ok response)
+        (if (io.riemann.riemann:ok response)
             (handle-response response request-type)
             (error (make-instance 'riemann-error-response
                                   :msg (protocol-buffer:string-value
-                                        (com.aphyr.riemann:error response))
+                                        (io.riemann.riemann:error response))
                                   :name request-type)))))))
 
 (defun send-msg (conn msg req-type)
@@ -61,7 +61,7 @@
     (send-msg conn msg :events)))
 
 (defun query (conn query-string)
-  (let* ((msg (make-instance 'com.aphyr.riemann:msg))
+  (let* ((msg (make-instance 'io.riemann.riemann:msg))
          (query (make-query query-string)))
-    (setf (com.aphyr.riemann:query msg) query)
+    (setf (io.riemanng.riemann:query msg) query)
     (send-msg conn msg :query)))

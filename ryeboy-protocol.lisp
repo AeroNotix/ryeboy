@@ -7,29 +7,29 @@
 (defgeneric set-attributes (event attributes)
   (:documentation "Set the attributes on the event"))
 
-(defmethod set-metric ((event com.aphyr.riemann:event) (metric integer))
-  (setf (com.aphyr.riemann:metric-sint64 event) metric)
+(defmethod set-metric ((event io.riemann.riemann:event) (metric integer))
+  (setf (io.riemann.riemann:metric-sint64 event) metric)
   event)
 
-(defmethod set-metric ((event com.aphyr.riemann:event) (metric float))
-  (setf (com.aphyr.riemann:metric-f event) metric)
+(defmethod set-metric ((event io.riemann.riemann:event) (metric float))
+  (setf (io.riemann.riemann:metric-f event) metric)
   event)
 
-(defmethod set-metric ((event com.aphyr.riemann:event) (metric double-float))
-  (setf (com.aphyr.riemann:metric-d event) metric)
+(defmethod set-metric ((event io.riemann.riemann:event) (metric double-float))
+  (setf (io.riemann.riemann:metric-d event) metric)
   event)
 
 (defun encode-attributes (kv)
   (let* ((k (car kv))
          (v (cdr kv))
-         (attr (make-instance 'com.aphyr.riemann:attribute)))
-    (setf (com.aphyr.riemann:key attr) (protocol-buffer:string-field k))
-    (setf (com.aphyr.riemann:value attr) (protocol-buffer:string-field v))
+         (attr (make-instance 'io.riemann.riemann:attribute)))
+    (setf (io.riemann.riemann:key attr) (protocol-buffer:string-field k))
+    (setf (io.riemann.riemann:value attr) (protocol-buffer:string-field v))
     attr))
 
-(defmethod set-attributes ((event com.aphyr.riemann:event) (attributes hash-table))
-  (setf (com.aphyr.riemann:attributes event)
-        (map '(vector com.aphyr.riemann:attribute)
+(defmethod set-attributes ((event io.riemann.riemann:event) (attributes hash-table))
+  (setf (io.riemann.riemann:attributes event)
+        (map '(vector io.riemann.riemann:attribute)
              #'encode-attributes
              (alexandria:hash-table-alist attributes))))
 
@@ -41,13 +41,13 @@
 
 ;; Make this a macro/defgeneric
 (defun bytes->msg (bytes)
-  (let ((e (make-instance 'com.aphyr.riemann:msg)))
+  (let ((e (make-instance 'io.riemann.riemann:msg)))
     (pb:merge-from-array e bytes 0 (length bytes))
     e))
 
 ;; Make this a macro/defgeneric
 (defun bytes->event (bytes)
-  (let ((e (make-instance 'com.aphyr.riemann:event)))
+  (let ((e (make-instance 'io.riemann.riemann:event)))
     (pb:merge-from-array e bytes 0 (length bytes))
     e))
 
@@ -56,20 +56,20 @@
                      (metric 0)
                      (host (machine-instance))
                      state service description tags ttl attrs)
-  (let ((event (make-instance 'com.aphyr.riemann:event)))
-    (setf (com.aphyr.riemann:time event) time)
-    (setf (com.aphyr.riemann:host event) (protocol-buffer:string-field host))
+  (let ((event (make-instance 'io.riemann.riemann:event)))
+    (setf (io.riemann.riemann:time event) time)
+    (setf (io.riemann.riemann:host event) (protocol-buffer:string-field host))
     (when state
-      (setf (com.aphyr.riemann:state event) (protocol-buffer:string-field state)))
+      (setf (io.riemann.riemann:state event) (protocol-buffer:string-field state)))
     (when service
-      (setf (com.aphyr.riemann:service event) (protocol-buffer:string-field service)))
+      (setf (io.riemann.riemann:service event) (protocol-buffer:string-field service)))
     (when description
-      (setf (com.aphyr.riemann:description event) (protocol-buffer:string-field description)))
+      (setf (io.riemann.riemann:description event) (protocol-buffer:string-field description)))
     (when tags
-      (setf (com.aphyr.riemann:tags event)
+      (setf (io.riemann.riemann:tags event)
             (map 'vector #'protocol-buffer:string-field tags)))
     (when ttl
-      (setf (com.aphyr.riemann:ttl event) (float ttl)))
+      (setf (io.riemann.riemann:ttl event) (float ttl)))
     (when attrs
       (set-attributes event attrs))
     (when metric
@@ -78,6 +78,6 @@
     event))
 
 (defun make-query (query-string)
-  (let ((query (make-instance 'com.aphyr.riemann:query)))
-    (setf (com.aphyr.riemann:string query) (protocol-buffer:string-field query-string))
+  (let ((query (make-instance 'io.riemann.riemann:query)))
+    (setf (io.riemann.riemann:string query) (protocol-buffer:string-field query-string))
     query))
