@@ -17,6 +17,10 @@
   :in-order-to ((test-op (test-op ryeboy-test))))
 
 (defsystem :ryeboy-test
+  :version "0.0.1"
+  :author "Aaron France aaron.l.france@gmail.com"
+  :description "Riemann client test suite"
+  :licence "BSD"
   :depends-on (:ryeboy :prove)
   :defsystem-depends-on (:prove-asdf)
   :components
