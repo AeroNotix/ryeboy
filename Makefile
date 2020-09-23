@@ -1,42 +1,10 @@
-PROTOBUF_DEFINITION=https://raw.githubusercontent.com/riemann/riemann-java-client/master/riemann-java-client/src/main/proto/riemann/proto.proto
-GOOGLE_STRUTIL_H=https://raw.githubusercontent.com/protocolbuffers/protobuf/master/src/google/protobuf/stubs/strutil.h
-PROTOC=$(shell which protoc 2> /dev/null)
-PROTOC_GEN_LISP=git://github.com/brown/protobuf.git
-PLUGIN=$(shell which protoc-gen-lisp 2> /dev/null)
-PROTO_OUTPUT=proto.lisp
-ifeq ($(PLUGIN),)
-PLUGIN_PATH=./bin/protoc-gen-lisp
-else
-PLUGIN_PATH=$(PLUGIN)
-endif
-LISP=sbcl
+LISP?=sbcl
 TEST_COMMAND='(asdf:test-system :ryeboy)'
 sbcl_TEST_OPTS=--noinform --eval $(TEST_COMMAND) --quit
 
-
-all: protobuf-compiler compile-proto
-
-compile-proto: $(PROTO_OUTPUT)
-
-$(PLUGIN_PATH):
-	@mkdir -p bin
-	@git clone $(PROTOC_GEN_LISP) /tmp/protobufs/ && \
-		cd /tmp/protobufs/protoc/lisp && \
-		wget $(GOOGLE_STRUTIL_H) && \
-		make
-	@cp /tmp/protobufs/protoc/lisp/protoc-gen-lisp ./bin/ && \
-		rm -rf /tmp/protobufs/
-
-protobuf-compiler: $(PLUGIN_PATH)
-
-proto.proto:
-	wget $(PROTOBUF_DEFINITION)
-
-proto.lisp: proto.proto
-	$(PROTOC) --plugin=$(PLUGIN_PATH) --proto_path=. --lisp_out=. $<
 
 test:
 	$(LISP) $($(LISP)_TEST_OPTS)
 
 .PHONY: \
-	protobuf-compiler
+	test
