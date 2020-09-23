@@ -4,19 +4,19 @@
   :author "Aaron France aaron.l.france@gmail.com"
   :description "Riemann client"
   :licence "BSD"
+  :defsystem-depends-on (protobuf)
   :serial t
   :components ((:file "packages")
-               (:file "proto")
+               (:protobuf-source-file "proto")
                (:file "binary")
                (:file "time")
                (:file "ryeboy-protocol")
                (:file "ryeboy-conn"))
   :depends-on (:alexandria
-               :protobuf
                :usocket)
-  :in-order-to ((test-op (test-op ryeboy-test))))
+  :in-order-to ((test-op (test-op ryeboy/test))))
 
-(defsystem :ryeboy-test
+(defsystem :ryeboy/test
   :version "0.0.1"
   :author "Aaron France aaron.l.france@gmail.com"
   :description "Riemann client test suite"
